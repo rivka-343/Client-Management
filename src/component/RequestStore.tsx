@@ -5,9 +5,17 @@ import { makeObservable, observable, action } from "mobx";
 
 class RequestStore {
     Requests: Req[] = []; // מערך רגיל
-    baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
-
+ baseUrl: string|"";
+    
     constructor() {
+        if (import.meta.env.VITE_BASE_URL) {
+            this.baseUrl = import.meta.env.VITE_BASE_URL;
+        } else {
+            this.baseUrl = ""; // הגדרת baseUrl כברירת מחדל
+            console.error("VITE_BASE_URL is not defined", import.meta.env);
+        }
+    
+
         makeObservable(this, {
             Requests: observable.ref, // מבטיח שהערך יהיה מערך רגיל ולא Proxy
             fetchRequests: action
@@ -39,6 +47,8 @@ class RequestStore {
     };
     fetchDocumentsByRequestId = async (id:number) => {
         try {
+
+
             //return this.http.get<{ fileName: string, downloadUrl: string }[]>(`${this.apiUrl}/Document/request-files/${requestId}`);
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
             const response = await fetch(`${this.baseUrl}/Document/request-files/${id}`, {

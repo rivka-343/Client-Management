@@ -44,7 +44,7 @@ const authReducer = (state: typeof initialState, action: Action)  : State => {
             return state;
     }
 };
-// **יצירת Context**
+//
 const AuthContext = createContext<{
     user: User | null;
     token: string | null;
@@ -103,10 +103,16 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     //     fetchUser();
     // }, [state.token]);
     useEffect(() => {
-      let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
-
+        let baseUrl ;
+        if (import.meta.env.VITE_BASE_URL) {
+            baseUrl = import.meta.env.VITE_BASE_URL;
+        } else {
+            baseUrl = ""; // הגדרת baseUrl כברירת מחדל
+            console.error("VITE_BASE_URL is not defined", import.meta.env);
+        }
+    
         const fetchUser = async () => {
-            if (!state.token) return; // אם אין טוקן, לא נבצע את הקריאה
+            if (!state.token) return;
             try {
                 const userId = getUserIdFromToken(state.token);
                 if (!userId) return;
@@ -114,14 +120,33 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                     headers: { Authorization: `Bearer ${state.token}` },
                 });
                 dispatch({ type: "LOGIN", data: { user: res.data, token: state.token } });
-            
             } catch (err) {
-                alert(" משתמש לא מורשה.");
-                dispatch({ type: "LOGOUT" }); // ניקוי במקרה של שגיאה
-            }           
+                alert("משתמש לא מורשה.");
+                dispatch({ type: "LOGOUT" });
+            }
         };
         fetchUser();
-    }, [state.token]); // הפונקציה תרוץ רק כשיש שינוי ב-token
+    }, [state.token]);
+    // useEffect(() => {
+    //   let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
+
+    //     const fetchUser = async () => {
+    //         if (!state.token) return; // אם אין טוקן, לא נבצע את הקריאה
+    //         try {
+    //             const userId = getUserIdFromToken(state.token);
+    //             if (!userId) return;
+    //             const res = await axios.get(`${baseUrl}/Users/${userId}`, {
+    //                 headers: { Authorization: `Bearer ${state.token}` },
+    //             });
+    //             dispatch({ type: "LOGIN", data: { user: res.data, token: state.token } });
+            
+    //         } catch (err) {
+    //             alert(" משתמש לא מורשה.");
+    //             dispatch({ type: "LOGOUT" }); // ניקוי במקרה של שגיאה
+    //         }           
+    //     };
+    //     fetchUser();
+    // }, [state.token]); // הפונקציה תרוץ רק כשיש שינוי ב-token
     
     return (
         <AuthContext value={{ user: state.user, token: state.token, dispatch }}>

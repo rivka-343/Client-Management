@@ -44,14 +44,16 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
         
     // };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
-
         e.preventDefault();
+        let baseUrl = import.meta.env.VITE_BASE_URL;// קבלת ה-BASE URL מ-env
         try {
+            console.log(baseUrl);
             const res = await axios.post(`${baseUrl}/Auth/login`, {
                 userName: UserName,
                 password: password
-            });            
+            });  
+            console.log(await res);
+                      
             // עדכון ה-Context וה-token
             dispatch({ type: "LOGIN", data: { user: res.data.user, token: res.data.token } });
             sessionStorage.setItem("token", res.data.token);
