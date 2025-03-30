@@ -44,9 +44,11 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
         
     // };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
+
         e.preventDefault();
         try {
-            const res = await axios.post('https://server-property-tax.onrender.com/api/Auth/login', {
+            const res = await axios.post(`${baseUrl}/Auth/login`, {
                 userName: UserName,
                 password: password
             });            

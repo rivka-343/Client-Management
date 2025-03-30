@@ -57,6 +57,7 @@ const AuthContext = createContext<{
 
 // **ספק גלובלי לכל האפליקציה**
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    
     const [state, dispatch] = useReducer(authReducer, initialState);
     const getUserIdFromToken = (token: string | null): string | null => {
         if (!token) return null; // אם אין טוקן, מחזירים null
@@ -102,13 +103,14 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     //     fetchUser();
     // }, [state.token]);
     useEffect(() => {
+      let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
+
         const fetchUser = async () => {
             if (!state.token) return; // אם אין טוקן, לא נבצע את הקריאה
             try {
                 const userId = getUserIdFromToken(state.token);
                 if (!userId) return;
-    
-                const res = await axios.get(`https://server-property-tax.onrender.com/api/Users/${userId}`, {
+                const res = await axios.get(`${baseUrl}/Users/${userId}`, {
                     headers: { Authorization: `Bearer ${state.token}` },
                 });
                 dispatch({ type: "LOGIN", data: { user: res.data, token: state.token } });
@@ -128,132 +130,3 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     );
 };
 export { AuthProvider, AuthContext };
-//  const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-//     const [user, dispatch] = useReducer(userReducer, initialUser);
-
-//     // **בדיקה אם יש משתמש שמור ב-LocalStorage**
-//     useEffect(() => {
-//         const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-//         if (storedUser) {
-//             dispatch({ type: "LOGIN", data: storedUser });
-//         }
-//     }, []);
-
-//     return <AuthContext
-//      value={{ user, dispatch }}>{children}
-//     </AuthContext>;
-// };
-
-// import { createContext, ReactNode, useReducer, useContext, useEffect } from "react";
-
-// // **סוגי תפקידים**
-// export type Role = "Manager" | "Employee" | null;
-
-// // **מבנה המשתמש**
-// export type User = {
-//     id: number;
-//     firstName?: string;
-//     lastName?: string;
-//     email?: string;
-//     password?: string;
-//     address?: string;
-//     phone?: string;
-//     role: Role;
-// };
-// // **אקשנים לניהול המשתמשים**
-// export type Action =
-//     | { type: "LOGIN"; data: User }
-//     | { type: "LOGOUT" }
-//     | { type: "REGISTER"; data: User }
-//     | { type: "UPDATE_USER"; data: Partial<User> };
-
-// // **סטייט ראשוני**
-// const initialUser: User | null = null;
-
-// // **Reducer לניהול משתמשים**
-// const userReducer = (state: User | null, action: Action): User | null => {
-//     switch (action.type) {
-//         case "LOGIN":
-//             return { ...action.data };
-//         case "REGISTER":
-//             return { ...action.data };
-//         case "UPDATE_USER":
-//             return state ? { ...state, ...action.data } : null;
-//         case "LOGOUT":
-//             return null;
-//         default:
-//             return state;
-//     }
-// };
-
-// // **יצירת Context**
-// const AuthContext = createContext<{ user: User | null; dispatch: React.Dispatch<Action> }>({
-//     user: initialUser,
-//     dispatch: () => null,
-// });
-// // **ספק גלובלי לכל האפליקציה**
-//  const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-//     const [user, dispatch] = useReducer(userReducer, initialUser);
-
-//     // **בדיקה אם יש משתמש שמור ב-LocalStorage**
-//     useEffect(() => {
-//         const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-//         if (storedUser) {
-//             dispatch({ type: "LOGIN", data: storedUser });
-//         }
-//     }, []);
-
-//     return <AuthContext
-//      value={{ user, dispatch }}>{children}
-//     </AuthContext>;
-// };
-
-// // **פונקציה נוחה לגישה ל-Context**
-// // export const useAuth = () => useContext(AuthContext);
-
-//  export { AuthProvider, AuthContext };
-// import { createContext, ReactNode, useReducer } from "react"
-// export type User = {
-//     id: number,
-//     firstName?: string,
-//     lastName?: string,
-//     email?: string,
-//     pasword?: string,
-//     adress?: string,
-//     phone?: string
-// }
-// export type Action = {
-//     type: 'ADD_USER',
-//     data:User
-// } | {
-//     type: 'DELETE_USER',
-//     id: number
-// } | {
-//     type: 'UPDATE_USER',
-//     data:User
-// }
-// const UserContext = createContext<{ user: User | null; dispatch: React.Dispatch<Action> }>({ user: null, dispatch: () => null });
-// const userReducer = (state: User | null, action: Action): User | null => {
-//     switch (action.type) {
-//         case 'ADD_USER':            
-//             return { ...action.data };
-//         case 'UPDATE_USER':
-//             return {
-//                 ...state,
-//                 ...action.data
-//             };
-//         case 'DELETE_USER':
-//             return null;
-//         default:
-//             return state;
-//     }
-// };
-// const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-//     const [user, dispatch] = useReducer(userReducer, null);
-//     return (
-//         <UserContext value={{ user, dispatch }}>
-//             {children}
-//         </UserContext>
-//     );
-// };
-// export { UserProvider, UserContext };

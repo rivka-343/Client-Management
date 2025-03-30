@@ -5,6 +5,7 @@ import { makeObservable, observable, action } from "mobx";
 
 class RequestStore {
     Requests: Req[] = []; // מערך רגיל
+    baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
 
     constructor() {
         makeObservable(this, {
@@ -16,7 +17,7 @@ class RequestStore {
     fetchRequestById = async (id:number) => {
         try {
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
-            const response = await fetch(`https://server-property-tax.onrender.com/api/Requests/${id}`, {
+            const response = await fetch(`${this.baseUrl}/Requests/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -40,7 +41,7 @@ class RequestStore {
         try {
             //return this.http.get<{ fileName: string, downloadUrl: string }[]>(`${this.apiUrl}/Document/request-files/${requestId}`);
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
-            const response = await fetch(`https://server-property-tax.onrender.com/api/Document/request-files/${id}`, {
+            const response = await fetch(`${this.baseUrl}/Document/request-files/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -62,7 +63,7 @@ class RequestStore {
     updateRequest= async (data: any,id:number)=>{
         try {
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
-             await fetch(`https://server-property-tax.onrender.com/api/Requests/${id}/calculation`, {
+             await fetch(`${this.baseUrl}/Requests/${id}/calculation`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,12 +74,11 @@ class RequestStore {
         } catch (error) {
             console.error("Error fetching requests:", error);
         }
-    }
-    
+    }  
     fetchRequests = async () => {
         try {
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
-            const response = await fetch("https://server-property-tax.onrender.com/api/Requests", {
+            const response = await fetch(`${this.baseUrl}/Requests`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -14,9 +14,10 @@ const Register = ({ permission, onClose }: { permission: string, onClose: () => 
     };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
        let token=sessionStorage.getItem("token");
         try {
-            await axios.post('https://server-property-tax.onrender.com/api/Auth/register', {
+            await axios.post( `${baseUrl}/Auth/register`, {
                 userName: UserName,
                 password: password,
                 idNumber:idNumber,

@@ -47,7 +47,7 @@ const Requests = observer(() => {
                  initialState={{
                      pagination: {
                          paginationModel: {
-                             pageSize: 10,
+                             pageSize: 15,
                          },
                      },
                  }}

@@ -80,7 +80,6 @@ console.log(event
         <Tab label="טפסים" />
         <Tab label="פרטי חישוב ההנחה" />
       </Tabs>
-
       <Box sx={{ mt: 2 }}>
         {tabValue === 0 && (
           <TableContainer component={Paper} sx={{ mt: 2 }}>
@@ -157,6 +156,7 @@ console.log(event
         {tabValue === 2 && (
           <Box sx={{ mt: 2 }}>
             <Typography variant="h6">סעיפים מחושבים</Typography>
+           
             <TableRow>
               <TableCell align="right">
                 <strong>סטטוס</strong>
