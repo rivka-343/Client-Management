@@ -14,8 +14,10 @@ const Register = ({ permission, onClose }: { permission: string, onClose: () => 
     };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
-       let token=sessionStorage.getItem("token");
+        // this.baseUrl = import.meta.env.VITE_BASE_URL;
+        //let baseUrl = process.env.REACT_APP_BASE_URL; // קבלת ה-BASE URL מ-env
+        let baseUrl = import.meta.env.VITE_BASE_URL; // קבלת ה-BASE URL מ-env
+        let token=sessionStorage.getItem("token");
         try {
             await axios.post( `${baseUrl}/Auth/register`, {
                 userName: UserName,
@@ -33,6 +35,7 @@ const Register = ({ permission, onClose }: { permission: string, onClose: () => 
             alert("add "+permission+" sucsesfoly!")        
             setError('');
         } catch (err) {
+            
                 alert('שגיאה בלתי צפויה, אנא נסה מאוחר יותר');
                 setError('An unexpected error occurred');
             }
