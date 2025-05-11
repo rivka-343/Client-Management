@@ -1,9 +1,7 @@
 import {   runInAction } from 'mobx';
-import { Req } from './Req';
 
 import { makeObservable, observable, action } from "mobx";
 import { User } from './User';
-import { log } from 'console';
 
 class UserStore {
     Residents: User[] = []; // מערך רגיל

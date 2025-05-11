@@ -70,7 +70,7 @@
 // export default Residents;
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import UserStore from './UserStore';
 import {
   Box,
@@ -87,7 +87,6 @@ import {
   Grid
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
@@ -96,7 +95,7 @@ import { User } from './User';
 
 
 const Residents = observer(() => {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
