@@ -176,7 +176,7 @@ console.log(event
 
             <TableRow>
               <TableCell align="right">
-                <strong>הכנסה חודשית ממוצעת</strong>
+                <strong>הכנסה חודשית ממוצעת לנפש</strong>
               </TableCell>
               <TableCell align="right">
                 {isEditing ? (

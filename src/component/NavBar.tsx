@@ -32,6 +32,16 @@ const NavBar = () => {
                     <Link to='/user-management' style={{ textDecoration: 'none', color: 'white' }}>User management</Link>
                 </Button>
             )}
+              {user?.role === 'Manager' && (
+                <Button color="inherit" variant="contained" style={{ marginRight: '10px' }}>
+                    <Link to='/settings' style={{ textDecoration: 'none', color: 'white' }}>settings</Link>
+                </Button>
+            )}
+            {user && (
+                <Button color="inherit" variant="contained" style={{ marginRight: '10px' }}>
+                    <Link to='/resident' style={{ textDecoration: 'none', color: 'white' }}>residents</Link>
+                </Button>
+            )}
             {user && (
                 <Button color="inherit" variant="contained" style={{ marginRight: '10px' }}>
                     <Link to='/request' style={{ textDecoration: 'none', color: 'white' }}>Request</Link>

@@ -47,8 +47,6 @@ class RequestStore {
     };
     fetchDocumentsByRequestId = async (id:number) => {
         try {
-
-
             //return this.http.get<{ fileName: string, downloadUrl: string }[]>(`${this.apiUrl}/Document/request-files/${requestId}`);
             const token = sessionStorage.getItem("token"); // שליפת ה-Token מה-Session Storage
             const response = await fetch(`${this.baseUrl}/Document/request-files/${id}`, {
@@ -111,46 +109,6 @@ class RequestStore {
             console.error("Error fetching requests:", error);
         }
     };
-    // async addRecipe(newRecipe :Req) {
-    //         const response = await fetch('http://localhost:3000/api/recipes/', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'user-id': newRecipe.authorId.toString()
-    //         },
-    //         body: JSON.stringify(newRecipe),            
-    //     });
-    //     if (response.ok) {
-    //         this.recipes.push(newRecipe);
-    //     } 
-    //     else{
-    //         if (response.status === 403) {
-    //             throw new Error( 'You do not have permission to add this recipe.');
-    //         } else {
-    //             throw new Error( 'An error occurred while adding the recipe.');
-    //         }
-            
-    //     }
-    // }
+  
 }
 export default new RequestStore();
-        
-// class RequestStore {
-//     Requests: Req[] =[] ;
-//     constructor() {
-//         makeAutoObservable(this);
-//     }
-
-//     fetchRequests = async () => {
-//         try {
-//             const response = await fetch("https://server-property-tax.onrender.com/api/Requests");
-//             const data: Req[] = await response.json();
-
-//             runInAction(() => {
-//                 this.Requests =toJS( data);
-//             });
-//             console.log("Updated Requests:", toJS(this.Requests)); // מדפיס ללא PROX
-//         } catch (error) {
-//             console.error("Error fetching requests:", error);
-//         }
-//     };

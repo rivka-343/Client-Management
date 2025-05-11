@@ -6,6 +6,8 @@ import UserManagement from "./component/UserManagement";
 import ProtectedRoute from "./component/ProtectedRoute";
 import Request from './component/Requests'
 import RequestDetails from "./component/RequestDetails";
+import Residents from "./component/Residents";
+import DiscountSettingsPage from "./component/DiscountSettingsPage";
 export const router = createBrowserRouter([
     {
         path: '/', element:
@@ -27,6 +29,20 @@ export const router = createBrowserRouter([
                 element: <ProtectedRoute allowedRoles={["Manager","Employee"]} />, // בודק הרשאה לפני טעינת הדף
                 children: [{ path: '', element: <Request /> },
                             {path:':id/view', element:<RequestDetails/>}
+                ]
+            }
+            ,
+            {
+                path: 'resident',
+                element: <ProtectedRoute allowedRoles={["Manager","Employee"]} />, // בודק הרשאה לפני טעינת הדף
+                children: [{ path: '', element: <Residents /> }
+                ]
+            }
+            ,
+            {
+                path: 'settings',
+                element: <ProtectedRoute allowedRoles={["Manager"]} />, // בודק הרשאה לפני טעינת הדף
+                children: [{ path: '', element: <DiscountSettingsPage /> }
                 ]
             }
             // {
