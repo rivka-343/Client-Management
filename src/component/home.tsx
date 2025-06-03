@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Home = () => {
   return (
     <div style={{
@@ -419,12 +417,15 @@ const Home = () => {
               transition: 'all 0.3s ease'
             }}
             onMouseOver={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+                  const target = e.target as HTMLAnchorElement; // Cast to HTMLAnchorElement
+              target.style.transform ='translateY(-2px)';
+              target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
             }}
             onMouseOut={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+              const target = e.target as HTMLAnchorElement; // Cast to HTMLAnchorElement
+
+              target.style.transform = 'translateY(0)';
+              target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
             }}
           >
             התחבר למערכת
