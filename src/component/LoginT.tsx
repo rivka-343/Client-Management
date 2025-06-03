@@ -13,36 +13,6 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!(prev));
     };
-    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await axios.post('https://server-property-tax.onrender.com/api/Auth/login', {
-    //             userName: UserName,
-    //             password: password
-    //         }
-    //         // ,{ withCredentials: true }
-    //         );
-    //         console.log(res);
-    //         // dispatch({ type: 'LOGIN', data: res.data.user });
-    //         dispatch({ type: "LOGIN", data: { user: res.data.user, token: res.data.token } });
-    //         sessionStorage.setItem("token", res.data.token);
-    //         setLogin(!(prev));
-    //         setError('');
-    //     } catch (err) {
-    //         if (axios.isAxiosError(err)) {
-    //             if (err.response && err.response.status === 401) {
-    //                 setError(err.response.data.message); // שמירה של הודעת השגיאה
-    //             } else {
-    //                 setError('An unexpected error occurred');
-    //             }
-    //         }
-    //     }
-    //     setUserName('');
-    //     setPassword('');
-    //     // console.log("lllllllllllllllll");
-    //     // console.log(user);
-        
-    // };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let baseUrl = import.meta.env.VITE_BASE_URL;// קבלת ה-BASE URL מ-env
@@ -62,23 +32,10 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.response) {                    
-                    // if (err.response.status === 401) {
-                    //     // במקרה של שגיאה 401 (לא מורשה) נסגור את הטופס ונראה הודעת שגיאה
-                    //     alert(" משתמש לא מורשה.");
-                    //     setLogin(false); // סגור את טופס ההתחברות
-                    //     setError(''); // ניתן לאפס את השגיאה במקרה של סגירה
-                    // } else
-                    //  if (err.response.status === 400) {
-                    //     // אם יש שגיאה בפרטי המשתמש, הדפס הודעה מתאימה
-                    //     setError(''); // אפס את הודעת השגיאה אם יש בעיה בפרטים
-                    // } else {
                         alert("יש בעיה בפרטי המשתמש, נא לבדוק את שם המשתמש והסיסמה.");
                         setError('');
-                        // setError('An unexpected error occurred');
-                    }
-                //}
+                }
             } else {
-                // טיפול בשגיאות שאינן קשורות ל-axios (למשל בעיות ברשת)
                 alert('שגיאה בלתי צפויה, אנא נסה מאוחר יותר');
                 setError('An unexpected error occurred');
             }
@@ -86,32 +43,7 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
         setUserName('');
         setPassword('');
     };
-    
-  
-    // const handleNewUser = async (e: FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await axios.post('http://localhost:3000/api/user/register', {
-    //             email: email,
-    //             password: password
-    //         });
-    //         dispatch({ type: 'ADD_USER', data: { ...res.data.user } });
-    //         setLogin(!(prev));
-
-    //     } catch (err) {
-    //         if (axios.isAxiosError(err)) {
-    //             if (err.response && err.response.status === 400) {
-    //                 setError(err.response.data.message);
-    //             } else {
-    //                 setError('An unexpected error occurred');
-    //             }
-    //         }
-    //     }
-    //     setEmail('');
-    //     setPassword('');
-    // };
     return (
-        // <form onSubmit={actionType === 'register' ? handleNewUser : handleSubmit}>
         <form onSubmit={handleSubmit}>
             <Box sx={{
                 display: 'flex', flexDirection: 'column',
@@ -147,7 +79,6 @@ const LoginT = ({ setLogin, prev }: { setLogin: Function, prev: boolean }) => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <Button type="submit" variant="contained" color="primary">
                    Login
-                   {/* {actionType === 'register' ? 'Register' : 'Login'} */}
                 </Button>
             </Box>
         </form>

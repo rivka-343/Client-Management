@@ -1,4 +1,10 @@
+import { useState } from "react";
+import LoginT from "./LoginT";
+
 const Home = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginState, setLoginState] = useState(false);
+
   return (
     <div style={{
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -8,55 +14,10 @@ const Home = () => {
       minHeight: '100vh',
       direction: 'rtl'
     }}>
-      {/* Header */}
-      {/* <header style={{
-        backgroundColor: '#ffffff',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        padding: '20px 0'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 20px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '20px'
-        }}>
-          <div style={{
-            width: '60px',
-            height: '60px',
-            backgroundColor: '#1e40af',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '24px',
-            fontWeight: 'bold'
-          }}>
-            חש
-          </div>
-          <div>
-            <h1 style={{
-              margin: '0',
-              fontSize: '2rem',
-              color: '#1e40af',
-              fontWeight: '600'
-            }}>
-              עיריית חריש
-            </h1>
-            <p style={{
-              margin: '5px 0 0 0',
-              color: '#666',
-              fontSize: '1.1rem'
-            }}>
-              מערכת ניהול בקשות הנחות ארנונה
-            </p>
-          </div>
-        </div>
-      </header> */}
 
-      {/* Hero Section */}
+{showLogin && (
+        <LoginT setLogin={setLoginState} prev={loginState} />
+      )}
       <section style={{
         backgroundColor: '#1e40af',
         color: 'white',
@@ -402,7 +363,7 @@ const Home = () => {
           }}>
             עובדי עיריית חריש מוזמנים להתחבר למערכת ולהתחיל לנהל בקשות בצורה יעילה ומקצועית
           </p>
-          <a 
+          {/* <a 
             href="https://managingpropertytaxdiscountrequests.onrender.com/"
             style={{
               backgroundColor: 'white',
@@ -429,7 +390,34 @@ const Home = () => {
             }}
           >
             התחבר למערכת
-          </a>
+          </a> */}
+          <button
+            onClick={() => setShowLogin(true)}
+            style={{
+              backgroundColor: 'white',
+              color: '#1e40af',
+              padding: '15px 40px',
+              borderRadius: '8px',
+              fontSize: '1.2rem',
+              fontWeight: '600',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              const target = e.target as HTMLButtonElement;
+              target.style.transform = 'translateY(-2px)';
+              target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+            }}
+            onMouseOut={(e) => {
+              const target = e.target as HTMLButtonElement;
+              target.style.transform = 'translateY(0)';
+              target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+            }}
+          >
+            התחבר למערכת
+          </button>
         </div>
       </section>
 
@@ -459,7 +447,9 @@ const Home = () => {
           </p>
         </div>
       </footer>
+     
     </div>
+    
   );
 };
 
